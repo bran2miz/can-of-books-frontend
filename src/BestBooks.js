@@ -6,7 +6,7 @@ class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
     }
   }
   getBooks = async () => {
@@ -28,7 +28,7 @@ console.log('This is the books arr: ',BooksArr);
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-        {this.state.books.length && <BooksArr />}
+        {this.state.books.length > 0 && BooksArr ? BooksArr : <h3>there are no books!</h3>}
       </>
     )
   }

@@ -7,6 +7,7 @@ class DisplayBooks extends React.Component {
       <>
       <Carousel>
       <Carousel.Item interval = {1000}>
+        <img src="https://via.placeholder.com/100" alt="placeHolder" className="d-block w-100" />
         <Carousel.Caption>
           <h3>
             {this.props.book.title}

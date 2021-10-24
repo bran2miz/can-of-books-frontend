@@ -3,11 +3,13 @@ import Header from './Header';
 import Footer from './Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BestBooks from './BestBooks';
+import Profile from './Profile';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
+import LoginButton from './LoginButton';
 
 class App extends React.Component {
 
@@ -15,18 +17,19 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: null,
+      login: false
     }
   }
 
   loginHandler = (user) => {
     this.setState({
-      user,
+      user, login: true,
     })
   }
 
   logoutHandler = () => {
     this.setState({
-      user: null,
+      user: null, login: false,
     })
   }
 
@@ -37,9 +40,11 @@ class App extends React.Component {
           <Header user={this.state.user} onLogout={this.logoutHandler} />
           <Switch>
             <Route exact path="/">
-              <BestBooks />
-              {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
+              {this.state.login && <BestBooks /> ?<BestBooks /> : <LoginButton/>}
             </Route>
+            <Route exact path="/profile" >
+              <Profile />
+              </Route> 
             {/* TODO: add a route with a path of '/profile' that renders a `Profile` component */}
           </Switch>
           <Footer />
