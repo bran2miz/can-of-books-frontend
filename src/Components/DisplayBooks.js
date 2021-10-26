@@ -5,24 +5,22 @@ class DisplayBooks extends React.Component {
     return(
       <>
       <Carousel>
-      <Carousel.Item interval = {1000}>
-        <img src="https://via.placeholder.com/100" alt="placeHolder" className="d-block w-100" />
-        <Carousel.Caption>
-          <h3>
-            {this.props.book.title}
-          </h3>
-          <p>
-            {this.props.book.description}
-          </p>
-          <p>
-            {this.props.book.status}
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-
-
-      </Carousel>
-      </>
+        {this.props.book.map(oneBook => 
+      <Carousel.Item key={oneBook._id}>
+      <img
+        className="d-block w-100"
+        src="https://via.placeholder.com/100"
+        alt="First slide"
+      />
+      <Carousel.Caption>
+        <h3><strong>{oneBook.title}</strong></h3>
+        <h3>{oneBook.description}</h3>
+        <p>{oneBook.status}</p>
+      </Carousel.Caption>
+    </Carousel.Item>
+    )}
+    </Carousel>
+    </>
     )
   }
 }
