@@ -1,41 +1,37 @@
-
-import React from 'react';
-import axios from 'axios';
-import DisplayBooks from './Components/DisplayBooks';
+import React from "react";
+import axios from "axios";
+import DisplayBooks from "./Components/DisplayBooks";
 
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       books: [],
-    }
+    };
   }
   getBooks = async () => {
-    //Below is the .env that is linked to heroku
-    const bookCans = `${process.env.REACT_APP_SERVER_HEROKU}/books`;
-    // Below is the localhost .env
-    // const bookCans = process.env.REACT_APP_SERVER;
-    try {
+    // const bookCans = `http://localhost:3001/books`;
+    const bookKey = process.env.REACT_APP_SERVER;
+    const bookCans = `${bookKey}/books`;
     const retrieveBooks = await axios.get(bookCans);
-    this.setState({books: retrieveBooks.data});
-    } catch(error) {
-      this.setState({bookError: true});
-    }
-  }
+    this.setState({ books: retrieveBooks.data });
+    console.log(retrieveBooks.data);
+  };
   componentDidMount() {
     this.getBooks();
-    console.log('hello');
+    console.log("hello");
   }
   render() {
-  // const BooksArr = this.state.books.map((book)=> {
-  //   return (<DisplayBooks book = {book} />)
-  // })
+    // const BooksArr = this.state.books.map((book) => {
+    //   return <DisplayBooks book={book} />;
+    // });
+    // console.log("This is the books arr: ", BooksArr);
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-        {this.state.books.length  ? (<DisplayBooks book= {this.state.books} />) : <h3>there are no books!</h3>}
+        {this.state.books.length > 1 ? <DisplayBooks books={this.state.books} /> : <h3>there are no books!</h3>}
       </>
-    )
+    );
   }
 }
 
