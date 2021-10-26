@@ -12,8 +12,10 @@ class BestBooks extends React.Component {
     }
   }
   getBooks = async () => {
-    // const bookCans = `http://localhost:3001/books`;
-    const bookCans = process.env.REACT_APP_SERVER;
+    //Below is the .env that is linked to heroku
+    const bookCans = process.env.REACT_APP_SERVER_HEROKU;
+    // Below is the localhost .env
+    // const bookCans = process.env.REACT_APP_SERVER;
     try {
     const retrieveBooks = await axios.get(bookCans);
     this.setState({books: retrieveBooks.data});
