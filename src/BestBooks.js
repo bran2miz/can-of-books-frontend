@@ -1,5 +1,4 @@
 
-   
 import React from 'react';
 import axios from 'axios';
 import DisplayBooks from './Components/DisplayBooks';
@@ -13,9 +12,9 @@ class BestBooks extends React.Component {
   }
   getBooks = async () => {
     //Below is the .env that is linked to heroku
-    const bookCans = process.env.REACT_APP_SERVER_HEROKU;
+    // const bookCans = process.env.REACT_APP_SERVER_HEROKU;
     // Below is the localhost .env
-    // const bookCans = process.env.REACT_APP_SERVER;
+    const bookCans = process.env.REACT_APP_SERVER;
     try {
     const retrieveBooks = await axios.get(bookCans);
     this.setState({books: retrieveBooks.data});
@@ -28,14 +27,13 @@ class BestBooks extends React.Component {
     console.log('hello');
   }
   render() {
-  const BooksArr = this.state.books.map((book)=> {
-    return (<DisplayBooks book = {book} />)
-  })
-console.log('This is the books arr: ',BooksArr);
+  // const BooksArr = this.state.books.map((book)=> {
+  //   return (<DisplayBooks book = {book} />)
+  // })
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-        {this.state.books.length > 0 && BooksArr ? BooksArr : <h3>there are no books!</h3>}
+        {this.state.books.length  ? (<DisplayBooks book= {this.state.books} />) : <h3>there are no books!</h3>}
       </>
     )
   }
