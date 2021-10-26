@@ -13,11 +13,13 @@ class BestBooks extends React.Component {
   }
   getBooks = async () => {
     // const bookCans = `http://localhost:3001/books`;
-    const bookKey = `process.env.REACT_APP_SERVER`;
-    const bookCans = `${bookKey}/books`;
+    const bookCans = process.env.REACT_APP_SERVER;
+    try {
     const retrieveBooks = await axios.get(bookCans);
     this.setState({books: retrieveBooks.data});
-    console.log(retrieveBooks.data);
+    } catch(error) {
+      this.setState({bookError: true});
+    }
   }
   componentDidMount() {
     this.getBooks();
