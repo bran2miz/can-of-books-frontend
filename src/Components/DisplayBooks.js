@@ -1,6 +1,5 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-
 class DisplayBooks extends React.Component {
   render() {
     return(
