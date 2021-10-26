@@ -1,29 +1,53 @@
-import { Component } from "react";
+import { Component } from 'react';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 class LoginForm extends Component {
 
-  render() {
-    return(
-    <>
-    <Form>
-    <Form.Label>
-      Name
-    </Form.Label>
-    <Form.Control type="text">
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      username: ''
+    };
+  }
 
-    </Form.Control>
-    <Form.Label>
-      Email
-    </Form.Label>
-    <Form.Control type="email" placeholder="Enter Your Email">
-      
-    </Form.Control>
-      
-    </Form>
-    </>
+  formInputHandler = (event) => {
+    console.log(event.target);
+    if (event.target.id === 'formEmail') {
+      this.setState({
+        email: event.target.value,
+      });
+    } else if (event.target.id === 'formUsername') {
+      this.setState({
+        username: event.target.value,
+      });
+    }
+  }
+
+  render() {
+    return (
+      <Form onSubmit={ (event) => this.props.onLoginSubmit({username: this.state.username, email: this.state.email}, event)}>
+        <Form.Group className="mb-3" controlId="formEmail">
+          <Form.Label>Email</Form.Label>
+          <Form.Control onChange={this.formInputHandler} type="email" placeholder="Enter email" />
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formUsername">
+          <Form.Label>Username</Form.Label>
+          <Form.Control onChange={this.formInputHandler} type="username" placeholder="username" />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          SUBMIT
+        </Button>
+
+      </Form>
     );
   }
-};
+}
 
 export default LoginForm;
