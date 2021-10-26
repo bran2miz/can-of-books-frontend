@@ -1,3 +1,5 @@
+
+   
 import React from 'react';
 import axios from 'axios';
 import DisplayBooks from './Components/DisplayBooks';
@@ -10,7 +12,9 @@ class BestBooks extends React.Component {
     }
   }
   getBooks = async () => {
-    const bookCans = `http://localhost:3001/books`;
+    // const bookCans = `http://localhost:3001/books`;
+    const bookKey = `process.env.REACT_APP_SERVER`;
+    const bookCans = `${bookKey}/books`;
     const retrieveBooks = await axios.get(bookCans);
     this.setState({books: retrieveBooks.data});
     console.log(retrieveBooks.data);
@@ -20,7 +24,6 @@ class BestBooks extends React.Component {
     console.log('hello');
   }
   render() {
-    /* TODO: render user's books in a Carousel */
   const BooksArr = this.state.books.map((book)=> {
     return (<DisplayBooks book = {book} />)
   })
@@ -35,8 +38,3 @@ console.log('This is the books arr: ',BooksArr);
 }
 
 export default BestBooks;
-
- /* {/* {this.state.books.length > 0 ? (
-          <BooksArr />
-        ) : (
-          <h3>No Books Found :(</h3> */

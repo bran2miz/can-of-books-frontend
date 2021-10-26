@@ -1,15 +1,15 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import BestBooks from './BestBooks';
 import Profile from './Profile';
+import Login from './Login';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
   Switch,
   Route
-} from "react-router-dom";
-import LoginButton from './LoginButton';
+} from 'react-router-dom';
+import BestBooks from './BestBooks';
 
 class App extends React.Component {
 
@@ -17,20 +17,27 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: null,
-      login: false
-    }
+      showBookForm: false,
+    };
   }
 
-  loginHandler = (user) => {
+  loginHandler = (user, event) => {
+    event.preventDefault();
     this.setState({
-      user, login: true,
-    })
+      user
+    });
   }
 
   logoutHandler = () => {
     this.setState({
-      user: null, login: false,
-    })
+      user: null
+    });
+  }
+
+  showBookFormHandler = () => {
+    this.setState({
+      showBookForm: true
+    });
   }
 
   render() {
@@ -40,17 +47,18 @@ class App extends React.Component {
           <Header user={this.state.user} onLogout={this.logoutHandler} />
           <Switch>
             <Route exact path="/">
-              {this.state.login && <BestBooks /> ?<BestBooks /> : <LoginButton/>}
+              {/* DONE: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
+              {this.state.user ? <BestBooks /> : <Login onLoginSubmit={this.loginHandler} handleFormInput={this.formInputHandler} />}
             </Route>
-            <Route exact path="/profile" >
-              <Profile />
-              </Route> 
-            {/* TODO: add a route with a path of '/profile' that renders a `Profile` component */}
+            {/* DONE: add a route with a path of '/profile' that renders a `Profile` component */}
+            <Route path="/profile">
+              {this.state.user ? <Profile user={this.state.user} /> : <h3>No Profile Found </h3>}
+            </Route>
           </Switch>
           <Footer />
         </Router>
       </>
-    )
+    );
   }
 }
 
