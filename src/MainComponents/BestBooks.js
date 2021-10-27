@@ -1,7 +1,6 @@
-
 import React from 'react';
 import axios from 'axios';
-import DisplayBooks from './Components/DisplayBooks';
+import DisplayBooks from '../Components/DisplayBooks.js';
 
 class BestBooks extends React.Component {
   constructor(props) {

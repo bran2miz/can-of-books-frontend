@@ -1,15 +1,15 @@
 import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
-import Profile from './Profile';
-import Login from './Login';
+import Header from './MainComponents/Header';
+import Footer from './MainComponents/Footer';
+import Profile from './LoginComponents/Profile';
+import Login from './LoginComponents/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from 'react-router-dom';
-import BestBooks from './BestBooks';
+import BestBooks from './MainComponents/BestBooks.js';
 
 class App extends React.Component {
 
