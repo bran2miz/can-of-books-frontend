@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import DisplayBooks from '../Components/DisplayBooks.js';
 
+
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
@@ -10,10 +11,7 @@ class BestBooks extends React.Component {
     }
   }
   getBooks = async () => {
-    //Below is the .env that is linked to heroku
-    const bookCans = `${process.env.REACT_APP_SERVER_HEROKU}/books`;
-    // Below is the localhost .env
-    // const bookCans = process.env.REACT_APP_SERVER;
+    const bookCans = `${process.env.REACT_APP_SERVER}/books`;
     try {
     const retrieveBooks = await axios.get(bookCans);
     this.setState({books: retrieveBooks.data});
