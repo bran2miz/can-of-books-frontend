@@ -1,6 +1,12 @@
+<<<<<<< HEAD:src/BestBooks.js
 import React from "react";
 import axios from "axios";
 import DisplayBooks from "./Components/DisplayBooks";
+=======
+import React from 'react';
+import axios from 'axios';
+import DisplayBooks from '../Components/DisplayBooks.js';
+>>>>>>> 72e51b2fe2612c4352fa9f92d767231114c9dbac:src/MainComponents/BestBooks.js
 
 class BestBooks extends React.Component {
   constructor(props) {

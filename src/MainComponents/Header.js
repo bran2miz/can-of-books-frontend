@@ -1,9 +1,9 @@
 import React from 'react';
 import { Navbar, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import './Header.css';
+import '../CSS/Header.css';
 // import Login from './Login';
-import LogoutButton from './LogoutButton';
+import LogoutButton from '../LoginComponents/LogoutButton.js';
 
 class Header extends React.Component {
   render() {
