@@ -1,17 +1,20 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import '../CSS/Carousel.css'
+
 class DisplayBooks extends React.Component {
   render() {
-    return(
+    console.log(this.props);
+    return (
       <>
       <Carousel>
-        {this.props.book.map(oneBook => 
+        {this.props.books.map(oneBook => 
       <Carousel.Item key={oneBook._id}>
       <img
         className="d-block w-100"
         src="https://via.placeholder.com/100"
         alt="First slide"
-      />
+        />
       <Carousel.Caption>
         <h3><strong>{oneBook.title}</strong></h3>
         <h3>{oneBook.description}</h3>

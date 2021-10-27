@@ -2,39 +2,38 @@ import React from 'react';
 import axios from 'axios';
 import DisplayBooks from '../Components/DisplayBooks.js';
 
+
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       books: [],
-    }
+    };
   }
+
   getBooks = async () => {
-    //Below is the .env that is linked to heroku
-    const bookCans = `${process.env.REACT_APP_SERVER_HEROKU}/books`;
-    // Below is the localhost .env
-    // const bookCans = process.env.REACT_APP_SERVER;
+    const bookCans = `${process.env.REACT_APP_SERVER}/books`;
     try {
-    const retrieveBooks = await axios.get(bookCans);
-    this.setState({books: retrieveBooks.data});
-    } catch(error) {
-      this.setState({bookError: true});
+      const retrieveBooks = await axios.get(`${bookCans}`);
+      this.setState({ books: retrieveBooks.data });
+      console.log(retrieveBooks.data);
+    } catch (e) {
+      console.warn("connection error: ", e.message);
     }
-  }
+  };
+
   componentDidMount() {
+    console.log("Getting Books");
     this.getBooks();
-    console.log('hello');
   }
+
   render() {
-  // const BooksArr = this.state.books.map((book)=> {
-  //   return (<DisplayBooks book = {book} />)
-  // })
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-        {this.state.books.length  ? (<DisplayBooks book= {this.state.books} />) : <h3>there are no books!</h3>}
+        {this.state.books.length > 1 ? <DisplayBooks books={this.state.books} /> : <h3>there are no books!</h3>}
       </>
-    )
+    );
   }
 }
 

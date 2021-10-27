@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Header from './MainComponents/Header';
 import Footer from './MainComponents/Footer';
@@ -12,7 +13,6 @@ import {
 import BestBooks from './MainComponents/BestBooks.js';
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -24,34 +24,39 @@ class App extends React.Component {
   loginHandler = (user, event) => {
     event.preventDefault();
     this.setState({
-      user
+      user,
     });
-  }
+  };
 
   logoutHandler = () => {
     this.setState({
-      user: null
+      user: null,
     });
-  }
+  };
 
   showBookFormHandler = () => {
     this.setState({
-      showBookForm: true
+      showBookForm: true,
     });
-  }
+  };
 
   render() {
+    console.log(this.state);
     return (
       <>
         <Router>
           <Header user={this.state.user} onLogout={this.logoutHandler} />
           <Switch>
-            <Route exact path="/">
+            <Route exact path='/'>
               {/* DONE: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
-              {this.state.user ? <BestBooks /> : <Login onLoginSubmit={this.loginHandler} handleFormInput={this.formInputHandler} />}
+              {this.state.user ? (
+                <BestBooks />
+              ) : (
+                <Login onLoginSubmit={this.loginHandler} handleFormInput={this.formInputHandler} />
+              )}
             </Route>
             {/* DONE: add a route with a path of '/profile' that renders a `Profile` component */}
-            <Route path="/profile">
+            <Route path='/profile'>
               {this.state.user ? <Profile user={this.state.user} /> : <h3>No Profile Found </h3>}
             </Route>
           </Switch>
