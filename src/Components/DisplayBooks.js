@@ -1,6 +1,5 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import Container from 'react-bootstrap/Container'
 import '../CSS/Carousel.css'
 
 class DisplayBooks extends React.Component {
@@ -8,9 +7,8 @@ class DisplayBooks extends React.Component {
     console.log(this.props);
     return (
       <>
-      <Container className='image-container'>
       <Carousel>
-        {this.props.book.map(oneBook => 
+        {this.props.books.map(oneBook => 
       <Carousel.Item key={oneBook._id}>
       <img
         className="d-block w-100"
@@ -25,7 +23,6 @@ class DisplayBooks extends React.Component {
     </Carousel.Item>
     )}
     </Carousel>
-    </Container>
     </>
     )
   }
