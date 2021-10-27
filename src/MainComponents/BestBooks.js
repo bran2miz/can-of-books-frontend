@@ -1,12 +1,7 @@
-<<<<<<< HEAD:src/BestBooks.js
-import React from "react";
-import axios from "axios";
-import DisplayBooks from "./Components/DisplayBooks";
-=======
 import React from 'react';
 import axios from 'axios';
 import DisplayBooks from '../Components/DisplayBooks.js';
->>>>>>> 72e51b2fe2612c4352fa9f92d767231114c9dbac:src/MainComponents/BestBooks.js
+
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -17,9 +12,7 @@ class BestBooks extends React.Component {
   }
 
   getBooks = async () => {
-    const bookKey = process.env.REACT_APP_SERVER;
-    const bookCans = `${bookKey}/books`;
-    console.log(bookCans);
+    const bookCans = `${process.env.REACT_APP_SERVER}/books`;
     try {
       const retrieveBooks = await axios.get(`${bookCans}`);
       this.setState({ books: retrieveBooks.data });
