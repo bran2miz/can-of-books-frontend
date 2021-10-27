@@ -4,6 +4,7 @@ import CarouselBook from "./CarouselBook";
 
 class DisplayBooks extends React.Component {
   render() {
+    console.log(this.props);
     return (
       <>
         <Carousel>

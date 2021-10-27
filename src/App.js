@@ -45,7 +45,7 @@ class App extends React.Component {
     return (
       <>
         <Router>
-          <Header user={this.state.user} onLogout={this.logoutHandler} />
+          {/* <Header user={this.state.user} onLogout={this.logoutHandler} /> */}
           <Switch>
             <Route exact path='/'>
               {/* DONE: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
@@ -60,7 +60,7 @@ class App extends React.Component {
               {this.state.user ? <Profile user={this.state.user} /> : <h3>No Profile Found </h3>}
             </Route>
           </Switch>
-          <Footer />
+          {/* <Footer /> */}
         </Router>
       </>
     );

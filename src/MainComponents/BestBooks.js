@@ -15,23 +15,26 @@ class BestBooks extends React.Component {
       books: [],
     };
   }
+
   getBooks = async () => {
-    // const bookCans = `http://localhost:3001/books`;
     const bookKey = process.env.REACT_APP_SERVER;
     const bookCans = `${bookKey}/books`;
-    const retrieveBooks = await axios.get(bookCans);
-    this.setState({ books: retrieveBooks.data });
-    console.log(retrieveBooks.data);
+    console.log(bookCans);
+    try {
+      const retrieveBooks = await axios.get(`${bookCans}`);
+      this.setState({ books: retrieveBooks.data });
+      console.log(retrieveBooks.data);
+    } catch (e) {
+      console.warn("connection error: ", e.message);
+    }
   };
+
   componentDidMount() {
+    console.log("Getting Books");
     this.getBooks();
-    console.log("hello");
   }
+
   render() {
-    // const BooksArr = this.state.books.map((book) => {
-    //   return <DisplayBooks book={book} />;
-    // });
-    // console.log("This is the books arr: ", BooksArr);
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
