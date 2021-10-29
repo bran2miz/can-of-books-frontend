@@ -1,31 +1,28 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import '../CSS/Carousel.css'
+import { Button } from 'react-bootstrap';
+
 
 class DisplayBooks extends React.Component {
   render() {
-    console.log(this.props);
     return (
       <>
-      <Carousel>
-        {this.props.books.map(oneBook => 
-      <Carousel.Item key={oneBook._id}>
-      <img
-        className="d-block w-100"
-        src="https://via.placeholder.com/100"
-        alt="First slide"
+        <img
+          className="d-block w-100"
+         src="https://via.placeholder.com/100"
+         alt="First slide"
         />
-      <Carousel.Caption>
-        <h3><strong>{oneBook.title}</strong></h3>
-        <h3>{oneBook.description}</h3>
-        <p>{oneBook.status}</p>
-      </Carousel.Caption>
-    </Carousel.Item>
-    )}
-    </Carousel>
-    </>
-    )
+        <Carousel.Caption>
+          <h3>{this.props.title}</h3>
+          <p>{this.props.description}</p>
+          <p>{this.props.status}</p>
+          <Button onClick={() => this.props.onDelete(this.props.book)}>Delete Book</Button>
+        </Carousel.Caption>
+      </>
+    );
   }
 }
 
 export default DisplayBooks;
+
