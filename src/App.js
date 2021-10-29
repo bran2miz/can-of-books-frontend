@@ -17,7 +17,6 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: null,
-      showBookForm: false,
     };
   }
 
@@ -34,11 +33,6 @@ class App extends React.Component {
     });
   };
 
-  showBookFormHandler = () => {
-    this.setState({
-      showBookForm: true,
-    });
-  };
 
   render() {
     console.log(this.state);
