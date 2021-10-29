@@ -47,7 +47,9 @@ Conflict Resolution
 * How will you approach each other and the challenge of building an application knowing that it is impossible for two people to be at the exact same place in understanding and skill level?
     Discuss each block of code so that we all as a group can go over complicated material in order to be on the same page.
 
-WhiteBoard Lab 11: ![Whiteboard Image](./src/Images/whiteboard-lab-11.png)
+**WhiteBoard Lab 11:** ![Whiteboard Image](./src/Images/whiteboard-lab-11.png)
+
+**WhiteBoard Lab 12:** ![Whiteboard Image](./src/Images/whiteboard-lab-12.png)
 
 ## Architecture
 
@@ -59,7 +61,11 @@ WhiteBoard Lab 11: ![Whiteboard Image](./src/Images/whiteboard-lab-11.png)
 
 ## Change Log
 
+10-26-2021 7:34pm - Application of front end was completed and deployed properly to Netlify
+
 ## Estimates
+
+### Lab 11 - Frontend
 
 Name of feature: frontend-lab-11
 
@@ -70,6 +76,18 @@ Start time: Saturday 6:00pm
 Finish time: Tuesday 7:34
 
 Actual time needed to complete: 7 hours (Refracturing)
+
+### Lab 12 - Frontend
+
+Name of feature: frontend-lab-12
+
+Estimate of time needed to complete: 6 hours
+
+Start time: Wednesday 7:00 pm
+
+Finish time: Thursday 9:39
+
+Actual time needed to complete: 7 hours
 
 ## Credit and Collaborations
 
