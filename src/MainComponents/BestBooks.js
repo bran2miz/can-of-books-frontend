@@ -24,9 +24,9 @@ class BestBooks extends React.Component {
   getBooks = async () => {
     const bookCans = `${process.env.REACT_APP_SERVER}/books`;
     try {
-      const retrieveBooks = await axios.get(bookCans);
-      this.setState({ books: retrieveBooks.data });
-      console.log(retrieveBooks.data);
+      const response = await axios.get(bookCans);
+      this.setState({ books: response.data });
+      console.log(response.data);
     } catch (e) {
       console.warn("connection error: ", e.message);
     }
@@ -38,7 +38,7 @@ class BestBooks extends React.Component {
   }
 
   handleCreate = async (bookInfo) => {
-    const server = `${process.env.REACT_APP_SERVER}/books`;
+    const server = `${process.env.REACT_APP_SERVER}/books/`;
     const response = await axios.post(server, bookInfo);
     const newBook = response.data;
     const books = [...this.state.books, newBook];
@@ -72,14 +72,15 @@ class BestBooks extends React.Component {
                 status={book.status}
                 email={book.email}   
                 onDelete={this.handleDelete}
-                book={book} />
+                book={book} >
+                </DisplayBooks>
               </Carousel.Item>
               );
             })
           }
         </Carousel>) : (<h3>there are no books!</h3>)
         }
-        {this.state.showBookForm ? <BookFormModal onCreate={this.handleCreate}/> : <AddBookButton onButtonClick={this.showBookFormHandler}/>}
+        {this.state.showBookForm ? <BookFormModal onCreate={this.handleCreate}/> : <AddBookButton onButtonClick={this.showBookFormHandler}/> } 
       </>
     );
   }
