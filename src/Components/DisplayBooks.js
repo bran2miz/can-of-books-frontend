@@ -17,7 +17,7 @@ class DisplayBooks extends React.Component {
           <h3>{this.props.title}</h3>
           <p>{this.props.description}</p>
           <p>{this.props.status}</p>
-          <Button onClick={() => this.props.onDelete(this.props.book)}>Delete Book</Button>
+          <Button onClick={() => this.props.handleDelete(this.props.book)}>Delete Book</Button>
         </Carousel.Caption>
       </>
     );
