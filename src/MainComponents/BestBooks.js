@@ -46,9 +46,11 @@ class BestBooks extends React.Component {
   }
 
   handleDelete = async (bookToDelete) => {
+    console.log(bookToDelete);
     const server = `${process.env.REACT_APP_SERVER}/books/${bookToDelete._id}`;
-    await axios.delete(server);
+    console.log(server);
     try{
+      await axios.delete(server);
       const books = this.state.books.filter(candidate => candidate._id !== bookToDelete._id);
       this.setState({books});
       alert(bookToDelete.title + 'was deleted');
@@ -59,6 +61,7 @@ class BestBooks extends React.Component {
   }
 
   render() {
+    console.log(this.state.books);
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
@@ -71,7 +74,7 @@ class BestBooks extends React.Component {
                 description={book.description}
                 status={book.status}
                 email={book.email}   
-                onDelete={this.handleDelete}
+                handleDelete={this.handleDelete}
                 book={book} >
                 </DisplayBooks>
               </Carousel.Item>

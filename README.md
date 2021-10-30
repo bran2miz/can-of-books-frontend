@@ -51,6 +51,8 @@ Conflict Resolution
 
 **WhiteBoard Lab 12:** ![Whiteboard Image](./src/Images/whiteboard-lab-12.png)
 
+**WhiteBoard Lab 13** ![Whiteboard Image](./src/Images/whiteboard-lab13.png)
+
 ## Architecture
 
 -Bootstrap
@@ -88,6 +90,18 @@ Start time: Wednesday 7:00 pm
 Finish time: Thursday 9:39
 
 Actual time needed to complete: 7 hours
+
+### Lab 13 - Frontend
+
+Name of feature: backend-lab-12
+
+Estimate of time needed to complete: 4 hours
+
+Start time: Saturday 1:20pm
+
+Finish time: Saturday
+
+Actual time needed to complete: 
 
 ## Credit and Collaborations
 
