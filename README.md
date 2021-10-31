@@ -93,15 +93,15 @@ Actual time needed to complete: 7 hours
 
 ### Lab 13 - Frontend
 
-Name of feature: backend-lab-12
+Name of feature: frontend-lab-13
 
 Estimate of time needed to complete: 4 hours
 
 Start time: Saturday 1:20pm
 
-Finish time: Saturday
+Finish time: Saturday 6:00pm
 
-Actual time needed to complete: 
+Actual time needed to complete: 5 hours 40 min
 
 ## Credit and Collaborations
 
