@@ -5,6 +5,7 @@ import BookFormModal from "../Components/BookFormModal.js";
 import AddBookButton from "../LoginComponents/AddBookButton.js";
 import { Carousel } from "react-bootstrap";
 import UpdateBook from "../Components/UpdateBook";
+import "../CSS/BestBooks.css"
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -58,7 +59,7 @@ class BestBooks extends React.Component {
       await axios.delete(server);
       const books = this.state.books.filter((candidate) => candidate._id !== bookToDelete._id);
       this.setState({ books: books });
-      alert(bookToDelete.title + "was deleted");
+      alert(bookToDelete.title + " was deleted");
     } catch (e) {
       console.log("error");
     }
@@ -95,7 +96,7 @@ class BestBooks extends React.Component {
   render() {
     return (
       <>
-        <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
+        <h2>Can of Books Library</h2>
         {this.state.books.length ? (
           <Carousel>
             {this.state.books.map((book) => {

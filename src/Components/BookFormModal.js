@@ -1,6 +1,7 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import React from 'react';
+import "../CSS/BookFormModal.css";
 
 
 class BookFormModal extends React.Component{
