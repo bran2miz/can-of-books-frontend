@@ -3,3 +3,7 @@
   max-height: 500px;
   padding: 20px;
 }
+
+.carousel-caption button {
+  margin: 10px
+}

@@ -25,8 +25,7 @@ class UpdateBook extends React.Component {
   render() {
     return (
       <>
-        <h2>HELLO</h2>
-        <Modal show={this.props.showUpdateForm} onHide={this.handleClose}>
+        <Modal show={this.props.showUpdateForm} onHide={this.handleClose} className="arrange-modal">
           <Modal.Header closeButton>
             <Modal.Title>UPDATE</Modal.Title>
           </Modal.Header>
@@ -63,7 +62,7 @@ class UpdateBook extends React.Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleClose}>Close</Button>
+            <Button className="color-submit" onClick={this.handleClose}>Close</Button>
           </Modal.Footer>
         </Modal>
       </>
