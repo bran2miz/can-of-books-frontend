@@ -6,6 +6,7 @@ import AddBookButton from "../LoginComponents/AddBookButton.js";
 import { Carousel } from "react-bootstrap";
 import UpdateBook from "../Components/UpdateBook";
 import "../CSS/BestBooks.css"
+import { withAuth0 } from '@auth0/auth0-react';
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -24,10 +25,10 @@ class BestBooks extends React.Component {
     });
   };
 
-  getBooks = async () => {
+  getBooks = async (config) => {
     const bookCans = `${process.env.REACT_APP_SERVER}/books`;
     try {
-      const response = await axios.get(bookCans);
+      const response = await axios.get(bookCans, config);
       this.setState({ books: response.data });
       console.log(response.data);
     } catch (e) {
@@ -35,9 +36,15 @@ class BestBooks extends React.Component {
     }
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     console.log("Getting Books");
-    this.getBooks();
+    
+    let getIdToken = await this.props.auth0.getIdTokenClaims();
+    let jwt = getIdToken.__raw
+    let config = {
+      headers: { "Authorization": `Bearer ${jwt}`}
+    }
+    this.getBooks(config);
   }
 
   handleCreate = async (bookInfo) => {
