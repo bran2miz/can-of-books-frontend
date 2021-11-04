@@ -1,145 +1,164 @@
-import React from "react";
-import axios from "axios";
-import DisplayBooks from "../Components/DisplayBooks.js";
-import BookFormModal from "../Components/BookFormModal.js";
-import AddBookButton from "../LoginComponents/AddBookButton.js";
-import { Carousel } from "react-bootstrap";
-import UpdateBook from "../Components/UpdateBook";
-import "../CSS/BestBooks.css"
+import React from 'react';
+import Book from '../Components/DisplayBooks.js';
+import axios from 'axios';
+import BookFormModal from '../Components/BookFormModal.js';
+import AddBookButton from '../LoginComponents/AddBookButton.js';
+import Carousel from 'react-bootstrap/Carousel';
+import UpdateBook from '../Components/UpdateBook.js';
 import { withAuth0 } from '@auth0/auth0-react';
+import '../CSS/BestBooks.css';
+
+const url = process.env.REACT_APP_SERVER;
 
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       books: [],
-      showBookForm: false,
-      updatedBook: "",
-      showUpdateForm: false,
+      showModal: false,
+      selectedBook: null,
     };
   }
 
+  //This is showing the create a book form
   showBookFormHandler = () => {
     this.setState({
-      showBookForm: true,
+      showModal: true
     });
-  };
-
-  getBooks = async (config) => {
-    const bookCans = `${process.env.REACT_APP_SERVER}/books`;
-    try {
-      const response = await axios.get(bookCans, config);
-      this.setState({ books: response.data });
-      console.log(response.data);
-    } catch (e) {
-      console.warn("connection error: ", e.message);
-    }
-  };
-
-  async componentDidMount() {
-    console.log("Getting Books");
-    
-    let getIdToken = await this.props.auth0.getIdTokenClaims();
-    let jwt = getIdToken.__raw
-    let config = {
-      headers: { "Authorization": `Bearer ${jwt}`}
-    }
-    this.getBooks(config);
   }
 
-  handleCreate = async (bookInfo) => {
-    const server = `${process.env.REACT_APP_SERVER}/books`;
-    const response = await axios.post(server, bookInfo);
-    const newBook = response.data;
-    const books = [...this.state.books, newBook];
-    this.setState({ books: books });
+  //this was our app.get function before
+  componentDidMount = () => {
+    this.props.auth0.getIdTokenClaims().then(async res => {
+      const jwt = res.__raw;
 
-    // const updatedData = await axios.get(server);
-    // this.setState({ books: updatedData });
-  };
+      const config = {
+        headers: { 'Authorization': `Bearer ${jwt}` },
+        baseURL: url,
+        url: '/books',
+        params: { email: this.props.auth0.user.email },
+        method: 'get'
+      };
 
-  handleDelete = async (bookToDelete) => {
-    console.log(bookToDelete);
-    const server = `${process.env.REACT_APP_SERVER}/books/${bookToDelete._id}`;
-    console.log(server);
-    try {
-      await axios.delete(server);
-      const books = this.state.books.filter((candidate) => candidate._id !== bookToDelete._id);
-      this.setState({ books: books });
-      alert(bookToDelete.title + " was deleted");
-    } catch (e) {
-      console.log("error");
-    }
-  };
+      const response = await axios(config);
 
-  handleUpdate = async (bookToUpdate) => {
-    const url = `${process.env.REACT_APP_SERVER}/books/${bookToUpdate._id}`;
-    try {
-      const res = await axios.put(url, bookToUpdate);
-      const updatedBook = res.data;
-      this.setState({
-        updatedBook: updatedBook,
-        showUpdateForm: true,
-      });
+      this.setState({ books: response.data });
+    })
+      .catch(err => console.error(err));
+  }
 
-      // UPdate Book State
-      const copyState = this.state.books;
+  //This function, along with addBook is creating a book
+  createBook = async (bookInfo) => {
+    this.props.auth0.getIdTokenClaims().then(async res => {
+      const jwt = res.__raw;
 
-      copyState.forEach((book, idx) => {
-        let kitten = [];
-        if (bookToUpdate._id === book._id) {
-          kitten.push([idx, book]);
-          copyState[idx] = bookToUpdate;
-          this.setState({
-            books: copyState,
-          });
-        }
-      });
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
+      const config = {
+        headers: { 'Authorization': `Bearer ${jwt}` },
+        data: bookInfo,
+        baseURL: url,
+        url: '/books',
+        method: 'post',
+        params: { email: this.props.auth0.user.email }
+      };
+      try {
+        const response = await axios(config);
+        const newBook = response.data;
+        const books = [...this.state.books, newBook];
+        this.setState({ books });
+        this.setState({ showModal: false });
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  }
+
+  //This is showing the update a book form
+  handleUpdateModal = (book) => {
+    this.setState({
+      selectedBook: book
+    });
+  }
+
+  //This is hiding the update a book form
+  closeUpdateModal = () => {
+    this.setState({
+      selectedBook: null
+    });
+  }
+
+  updateBook = async (bookToUpdate) => {
+
+    this.props.auth0.getIdTokenClaims().then(async res => {
+      const jwt = res.__raw;
+
+      const config = {
+        headers: { 'Authorization': `Bearer ${jwt}` },
+        data: bookToUpdate,
+        method: 'put',
+        baseURL: url,
+        url: `/books/${bookToUpdate._id}`,
+        params: { email: this.props.auth0.user.email },
+      };
+      try {
+        const response = await axios(config);
+        const updatedBook = response.data;
+        const books = this.state.books.map(currentBook => updatedBook._id === currentBook._id ? updatedBook : currentBook);
+        this.setState({ books, selectedBook: null });
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  }
+
+  // function that removes book from carousel
+  removeBook = async (bookToRemove) => {
+    this.props.auth0.getIdTokenClaims().then(async res => {
+      const jwt = res.__raw;
+      const config = {
+        params: { email: this.props.auth0.user.email },
+        headers: { 'Authorization': `Bearer ${jwt}` },
+        method: 'delete',
+        baseURL: process.env.REACT_APP_SERVER,
+        url: `/books/${bookToRemove._id}`,
+        data: bookToRemove,
+      };
+      await axios(config);
+      const books = this.state.books.filter(candidate => candidate._id !== bookToRemove._id);
+      this.setState({ books });
+    });
+  }
 
   render() {
     return (
       <>
-        <h2>Can of Books Library</h2>
+        <h2 className="title">Can of Books</h2>
+
         {this.state.books.length ? (
-          <Carousel>
-            {this.state.books.map((book) => {
-              return (
-                <Carousel.Item key={book._id}>
-                  <DisplayBooks
-                    handleUpdate={this.handleUpdate}
-                    title={book.title}
-                    description={book.description}
-                    status={book.status}
-                    email={book.email}
-                    handleDelete={this.handleDelete}
-                    book={book}
-                  ></DisplayBooks>
-                </Carousel.Item>
-              );
-            })}
-          </Carousel>
-        ) : (
-          <h3>there are no books!</h3>
-        )}
-        {this.state.showBookForm ? (
-          <BookFormModal onCreate={this.handleCreate} />
-        ) : (
-          <AddBookButton onButtonClick={this.showBookFormHandler} />
-        )}
-        <UpdateBook
-          updateBookState={this.updateBookState}
-          updateBook={this.state.updatedBook}
-          handleUpdate={this.handleUpdate}
-          showUpdateForm={this.state.showUpdateForm}
-          onClose={() => this.setState({ showUpdateForm: false })}
-        />
+          <Carousel>{this.state.books.map((book) => {
+            return (
+              <Carousel.Item key={book._id}>
+                <Book
+                  title={book.title}
+                  description={book.description}
+                  status={book.status}
+                  email={book.email}
+                  onDelete={this.removeBook}
+                  onUpdateModal={this.handleUpdateModal}
+                  book={book}>
+                </Book>
+              </Carousel.Item>
+            );
+          })}
+          </Carousel>) : (<h3>No Books Found </h3>)}
+
+
+        {this.state.showModal ? <BookFormModal onCreate={this.createBook} /> : <AddBookButton onButtonClick={this.showBookFormHandler} />}
+
+        <UpdateBook book={this.state.selectedBook} onUpdate={this.updateBook} onClose={this.closeUpdateModal} />
+
       </>
     );
   }
 }
 
-export default BestBooks;
+export default withAuth0(BestBooks);

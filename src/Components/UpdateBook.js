@@ -1,71 +1,65 @@
-import React from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import { Component } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
-class UpdateBook extends React.Component {
-  handleSubmit = (ev) => {
-    ev.preventDefault();
+class UpdateBook extends Component {
 
-    const updatedObj = {
-      _id: this.props.updateBook._id,
-      title: ev.target.bookTitle.value,
-      description: ev.target.bookDescription.value,
-      email: ev.target.bookEmail.value,
-      status: ev.target.bookStatus.checked,
-    };
-
-    this.props.handleUpdate(updatedObj);
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.onUpdate({
+      _id: this.props.book._id,
+      title: event.target.bookTitle.value,
+      description: event.target.bookDescription.value,
+      email: event.target.bookEmail.value,
+      status: event.target.bookStatusCheckbox.checked,
+    });
   };
+
 
   handleClose = () => {
     this.props.onClose();
-  };
+  }
+
 
   render() {
+
+    if (!this.props.book) return null;
     return (
-      <>
-        <Modal show={this.props.showUpdateForm} onHide={this.handleClose} className="arrange-modal">
-          <Modal.Header closeButton>
-            <Modal.Title>UPDATE</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form onSubmit={(ev) => this.handleSubmit(ev)}>
-              <Form.Group className='mb-3' controlId='bookTitle'>
-                <Form.Label>TESTING UPDATE</Form.Label>
-                <Form.Control
-                  type='name'
-                  placeholder='Enter Book Title'
-                  defaultValue={this.props.updateBook.title}
-                ></Form.Control>
-              </Form.Group>
-              <Form.Group className='mb-3' controlId='bookDescription'>
-                <Form.Label>Description</Form.Label>
-                <Form.Control
-                  type='name'
-                  placeholder='Enter Book Description'
-                  defaultValue={this.props.updateBook.description}
-                ></Form.Control>
-              </Form.Group>
-              <Form.Group className='mb-3' controlId='bookEmail'>
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type='email'
-                  placeholder='Enter Email'
-                  defaultValue={this.props.updateBook.email}
-                ></Form.Control>
-              </Form.Group>
-              <Form.Group className='mb-3' controlId='bookStatus'>
-                <Form.Check type='checkbox' label='read' defaultChecked={this.props.updateBook.status}></Form.Check>
-              </Form.Group>
-              <Button type='Submit'>Submit</Button>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button className="color-submit" onClick={this.handleClose}>Close</Button>
-          </Modal.Footer>
-        </Modal>
-      </>
+      <Modal show={this.props.book} onHide={this.handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Update a Book</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Group className="mb-3" controlId="bookTitle">
+              <Form.Label>Title</Form.Label>
+              <Form.Control type="name" placeholder="Enter book title" defaultValue={this.props.book.title} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="bookDescription">
+              <Form.Label>Description</Form.Label>
+              <Form.Control type="name" placeholder="Enter book Description" defaultValue={this.props.book.description} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="bookEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="name" placeholder="Enter email" defaultValue={this.props.book.email} />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="bookStatusCheckbox">
+              <Form.Check type="checkbox" label="Read" defaultChecked={this.props.book.status} />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     );
   }
 }

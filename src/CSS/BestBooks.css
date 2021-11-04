@@ -1,7 +1,12 @@
-#root h2 {
+h2.title {
   text-align: center;
+  align-items: center;
 }
 
 #root h3 {
   text-align: center;
+}
+
+div.profile img {
+  justify-content: center;
 }

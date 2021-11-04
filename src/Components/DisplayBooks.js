@@ -12,8 +12,8 @@ class DisplayBooks extends React.Component {
           <h3>{this.props.title}</h3>
           <p>{this.props.description}</p>
           <p>{this.props.status}</p>
-          <Button variant="warning" onClick={() => this.props.handleDelete(this.props.book)}>Delete Book</Button>
-          <Button variant="info" onClick={() => this.props.handleUpdate(this.props.book)}>Update Book</Button>
+          <Button variant="primary" onClick={() => this.props.onUpdateModal(this.props.book)}>Update Book</Button>
+          <Button variant="warning" onClick={() => this.props.onDelete(this.props.book)}>Delete Book</Button>
         </Carousel.Caption>
       </>
     );
