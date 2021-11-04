@@ -51,7 +51,9 @@ Conflict Resolution
 
 **WhiteBoard Lab 12:** ![Whiteboard Image](./src/Images/whiteboard-lab-12.png)
 
-**WhiteBoard Lab 13** ![Whiteboard Image](./src/Images/whiteboard-lab13.png)
+**WhiteBoard Lab 13** ![Whiteboard Image](./src/Images/whiteboard-lab-13.png)
+
+**WhiteBoard Lab 14** ![Whiteboard Image](./src/Images/whiteboard-lab-14.png)
 
 ## Architecture
 
@@ -102,6 +104,18 @@ Start time: Saturday 1:20pm
 Finish time: Saturday 6:00pm
 
 Actual time needed to complete: 5 hours 40 min
+
+### Lab 13 - Frontend
+
+Name of feature: frontend-lab-14-auth
+
+Estimate of time needed to complete: 4 hours
+
+Start time: Tuesday 8:30pm
+
+Finish time: Thursday 2:30pm
+
+Actual time needed to complete: 5 hours 30 min
 
 ## Credit and Collaborations
 
