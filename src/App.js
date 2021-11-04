@@ -44,7 +44,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path='/'>
               {/* DONE: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
-              {this.state.user ? (
+              {this.props.auth0.isAuthenticated ? (
                 <BestBooks />
               ) : (
                 <Login onLoginSubmit={this.loginHandler} handleFormInput={this.formInputHandler} />

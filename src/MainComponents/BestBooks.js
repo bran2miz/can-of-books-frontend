@@ -1,12 +1,13 @@
 import React from "react";
 import axios from "axios";
-import DisplayBooks from "../Components/DisplayBooks.js";
-import BookFormModal from "../Components/BookFormModal.js";
-import AddBookButton from "../LoginComponents/AddBookButton.js";
-import { Carousel } from "react-bootstrap";
+// import BookFormModal from "../Components/BookFormModal.js";
 import UpdateBook from "../Components/UpdateBook";
 import "../CSS/BestBooks.css"
 import { withAuth0 } from '@auth0/auth0-react';
+// import AuthLogin from '../Components/AuthLogin.js';
+import Login from '../LoginComponents/Login.js'
+// import Profile from "../LoginComponents/Profile.js";
+import ProfileAuth from '../Components/ProfileAuth.js'
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class BestBooks extends React.Component {
     console.log("Getting Books");
     
     let getIdToken = await this.props.auth0.getIdTokenClaims();
-    let jwt = getIdToken.__raw
+    let jwt = getIdToken.__raw;
     let config = {
       headers: { "Authorization": `Bearer ${jwt}`}
     }
@@ -104,42 +105,19 @@ class BestBooks extends React.Component {
     return (
       <>
         <h2>Can of Books Library</h2>
-        {this.state.books.length ? (
-          <Carousel>
-            {this.state.books.map((book) => {
-              return (
-                <Carousel.Item key={book._id}>
-                  <DisplayBooks
-                    handleUpdate={this.handleUpdate}
-                    title={book.title}
-                    description={book.description}
-                    status={book.status}
-                    email={book.email}
-                    handleDelete={this.handleDelete}
-                    book={book}
-                  ></DisplayBooks>
-                </Carousel.Item>
-              );
-            })}
-          </Carousel>
-        ) : (
-          <h3>there are no books!</h3>
-        )}
-        {this.state.showBookForm ? (
-          <BookFormModal onCreate={this.handleCreate} />
-        ) : (
-          <AddBookButton onButtonClick={this.showBookFormHandler} />
-        )}
+        <Login />
+        <ProfileAuth books={this.state.books} />   
+        {this.state.showBookForm && (
         <UpdateBook
           updateBookState={this.updateBookState}
           updateBook={this.state.updatedBook}
           handleUpdate={this.handleUpdate}
           showUpdateForm={this.state.showUpdateForm}
           onClose={() => this.setState({ showUpdateForm: false })}
-        />
-      </>
-    );
-  }
+        />)}
+        </>
+    )
+}
 }
 
-export default BestBooks;
+export default withAuth0(BestBooks);
