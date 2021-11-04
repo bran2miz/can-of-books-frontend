@@ -11,26 +11,6 @@ import "./CSS/Profile.css";
 import "./CSS/BestBooks.css";
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: null,
-    };
-  }
-
-  loginHandler = (user, event) => {
-    event.preventDefault();
-    this.setState({
-      user,
-    });
-  };
-
-  logoutHandler = () => {
-    this.setState({
-      user: null,
-    });
-  };
-
   render() {
     console.log(this.state);
     return (

@@ -141,7 +141,7 @@ class Main extends React.Component {
             handleUpdateModal={this.handleUpdateModal}
           />
         ) : (
-          <h1>nope</h1>
+          <h2>You have no books</h2>
         )}
 
         {this.state.showModal ? (
