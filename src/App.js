@@ -1,11 +1,10 @@
 import React from "react";
-import Header from "./MainComponents/Header";
-import Footer from "./MainComponents/Footer";
-import Profile from "./LoginComponents/Profile";
-import Login from "./LoginComponents/Login";
-import "bootstrap/dist/css/bootstrap.min.css";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
+import Profile from "./Components/LoginComponents/Profile";
+import Login from "./Components/LoginComponents/Login";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import BestBooks from "./MainComponents/BestBooks.js";
+import Main from "./Components/Main.js";
 
 import { withAuth0 } from "@auth0/auth0-react";
 import "./CSS/Profile.css";
@@ -41,7 +40,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path='/'>
               {this.props.auth0.isAuthenticated ? (
-                <BestBooks />
+                <Main />
               ) : (
                 <Login onLoginSubmit={this.loginHandler} handleFormInput={this.formInputHandler} />
               )}
