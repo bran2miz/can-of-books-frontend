@@ -1,11 +1,9 @@
+import { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import React from 'react';
-import "../CSS/BookFormModal.css";
+import '../CSS/BookFormModal.css';
 
-
-class BookFormModal extends React.Component{
-
+class BookFormModal extends Component {
 
   handleBookSubmit = (event) => {
     event.preventDefault();
@@ -16,40 +14,40 @@ class BookFormModal extends React.Component{
       email: event.target.userEmail.value,
     };
     this.props.onCreate(bookInfo);
-    }
-  
-    render(){
-        return(
-            <Form onSubmit={this.handleBookSubmit}>
-                <Form.Group className = "mb-3" controlId = "bookTitle">
-                    <Form.Label>
-                      Title
-                    </Form.Label>
-                        <Form.Control type="title" placeholder="Enter Your Book Here!" />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="bookDescription">
-                    <Form.Label>
-                      Description of Book
-                    </Form.Label>
-                        <Form.Control type="description" placeholder="Enter Your Book Description"/>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="userEmail">
-                    <Form.Label>
-                      Email
-                    </Form.Label>
-                        <Form.Control type="email" placeholder="Enter Your Email" />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="statusCheckbox">
-                  <Form.Check type="checkbox" label="Read" />
-                </Form.Group>
+  }
 
-                <Button variant="primary" type="submit">
-                  SUBMIT BOOK
-                </Button>
-            </Form>
-        )
-    }
 
+
+  render() {
+    return (
+      <Form onSubmit={this.handleBookSubmit}>
+        <Form.Group className="mb-3" controlId="bookTitle">
+          <Form.Label>Title</Form.Label>
+          <Form.Control class="col-xs-2" type="title" placeholder="Enter book title" />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="bookDescription">
+          <Form.Label>Description</Form.Label>
+          {/* //might not need onChange */}
+          <Form.Control type="description" placeholder="Enter book description" />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="userEmail">
+          <Form.Label>email</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="statusCheckbox">
+          <Form.Check type="checkbox" label="Read" />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          SUBMIT
+        </Button>
+
+      </Form>
+    );
+  }
 }
 
 export default BookFormModal;
