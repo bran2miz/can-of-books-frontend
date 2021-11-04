@@ -1,44 +1,17 @@
-import React from 'react';
-import Card from 'react-bootstrap/Card';
-import '../CSS/Login.css';
-import LoginButton from './LoginButton';
-
-// import LoginForm from './LoginForm';
-
-
-
+import React from "react";
+import Card from "react-bootstrap/Card";
+import "../CSS/Login.css";
+import LoginButton from "./LoginButton";
 
 class Login extends React.Component {
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     showForm: false,
-  //   };
-  // }
-
-  // showFormHandler = () => {
-  //   this.setState({
-  //     showForm: true
-  //   });
-  // }
-
   render() {
     return (
       <>
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: "18rem" }}>
           <Card.Body>
             <Card.Title>Log In</Card.Title>
-            <Card.Text>
-              Click Below to Log In
-            </Card.Text>
-            {/* DONE: add a `LoginButton` component here that will log the user in */}
-
-            {/* {this.state.showForm ? <LoginForm onLoginSubmit={this.props.onLoginSubmit}/> :  */}
-
+            <Card.Text>Click Below to Log In</Card.Text>
             <LoginButton />
-
-            {/* onButtonClick={this.showFormHandler} /> */}
           </Card.Body>
         </Card>
       </>
