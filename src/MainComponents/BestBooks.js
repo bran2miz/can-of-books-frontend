@@ -49,8 +49,8 @@ class BestBooks extends React.Component {
 
   //This function, along with addBook is creating a book
   createBook = async (bookInfo) => {
-    this.props.auth0.getIdTokenClaims().then(async res => {
-      const jwt = res.__raw;
+    const token= await this.props.auth0.getIdTokenClaims();
+      const jwt = token.__raw;
 
       const config = {
         headers: { 'Authorization': `Bearer ${jwt}` },
@@ -68,8 +68,7 @@ class BestBooks extends React.Component {
         this.setState({ showModal: false });
       } catch (err) {
         console.error(err);
-      }
-    });
+      };
   }
 
   //This is showing the update a book form
@@ -87,9 +86,8 @@ class BestBooks extends React.Component {
   }
 
   updateBook = async (bookToUpdate) => {
-
-    this.props.auth0.getIdTokenClaims().then(async res => {
-      const jwt = res.__raw;
+    let token = await this.props.auth0.getIdTokenClaims();
+      const jwt = token.__raw;
 
       const config = {
         headers: { 'Authorization': `Bearer ${jwt}` },
@@ -99,21 +97,23 @@ class BestBooks extends React.Component {
         url: `/books/${bookToUpdate._id}`,
         params: { email: this.props.auth0.user.email },
       };
+      console.log('try');
       try {
         const response = await axios(config);
         const updatedBook = response.data;
+        console.log('updatedBook:', updatedBook);
         const books = this.state.books.map(currentBook => updatedBook._id === currentBook._id ? updatedBook : currentBook);
         this.setState({ books, selectedBook: null });
       } catch (err) {
         console.log(err);
       }
-    });
-  }
+    
+  };
 
   // function that removes book from carousel
   removeBook = async (bookToRemove) => {
-    this.props.auth0.getIdTokenClaims().then(async res => {
-      const jwt = res.__raw;
+    let token = await this.props.auth0.getIdTokenClaims();
+      const jwt = token.__raw;
       const config = {
         params: { email: this.props.auth0.user.email },
         headers: { 'Authorization': `Bearer ${jwt}` },
@@ -122,20 +122,20 @@ class BestBooks extends React.Component {
         url: `/books/${bookToRemove._id}`,
         data: bookToRemove,
       };
-      await axios(config);
-      const books = this.state.books.filter(candidate => candidate._id !== bookToRemove._id);
-      this.setState({ books });
-    });
-  }
+      const res = await axios(config);
+      console.log('data', res.data);
+      const deleteBook = this.state.books.filter(candidate => candidate._id !== bookToRemove._id);
+      this.setState({ books: deleteBook });
+    
+  };
 
   render() {
     return (
       <>
         <h2 className="title">Can of Books</h2>
 
-        {this.state.books.length ? (
-          <Carousel>{this.state.books.map((book) => {
-            return (
+        {this.state.books.length > 0 ? (
+          <Carousel>{this.state.books.map((book) => 
               <Carousel.Item key={book._id}>
                 <Book
                   title={book.title}
@@ -147,8 +147,8 @@ class BestBooks extends React.Component {
                   book={book}>
                 </Book>
               </Carousel.Item>
-            );
-          })}
+            
+          )}
           </Carousel>) : (<h3>No Books Found </h3>)}
 
 
