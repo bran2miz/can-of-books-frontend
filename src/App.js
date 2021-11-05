@@ -1,58 +1,42 @@
-import React from 'react';
-import Header from './MainComponents/Header';
-import Footer from './MainComponents/Footer';
-import Profile from './LoginComponents/Profile';
-import Login from './LoginComponents/Login';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom';
-import BestBooks from './MainComponents/BestBooks.js';
+import React from "react";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
+import Profile from "./Components/LoginComponents/Profile";
+import Login from "./Components/LoginComponents/Login";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Main from "./Components/Main.js";
 
-import {withAuth0} from '@auth0/auth0-react';
-import './CSS/Profile.css';
-import './CSS/BestBooks.css';
-
+import { withAuth0 } from "@auth0/auth0-react";
+import "./CSS/Profile.css";
+import "./CSS/BestBooks.css";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
+      loggedIn: false,
     };
   }
 
-  loginHandler = (user, event) => {
-    event.preventDefault();
-    this.setState({
-      user,
-    });
-  };
+  componentDidMount() {
+    if (this.props.auth0.isAuthenticated) {
+      this.setLoginState(true);
+    }
+  }
 
-  logoutHandler = () => {
-    this.setState({
-      user: null,
-    });
+  setLoginState = (bool) => {
+    this.setState({ loggedIn: bool });
   };
 
   render() {
-    console.log(this.state);
     return (
       <>
         <Router>
-          <Header user={this.state.user} onLogout={this.logoutHandler} />
+          <Header loggedIn={this.state.loggedIn} setLoginState={this.setLoginState} />
           <Switch>
             <Route exact path='/'>
-              {/* DONE: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
-              {this.props.auth0.isAuthenticated ? (
-                <BestBooks />
-              ) : (
-                <Login onLoginSubmit={this.loginHandler} handleFormInput={this.formInputHandler} />
-              )}
+              {this.props.auth0.isAuthenticated ? <Main setLoginState={this.setLoginState} /> : <Login />}
             </Route>
-            {/* DONE: add a route with a path of '/profile' that renders a `Profile` component */}
             <Route path='/profile'>
               <Profile />
             </Route>
