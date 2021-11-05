@@ -45,6 +45,7 @@ class Main extends React.Component {
 
         this.setState({ books: response.data });
       })
+      .then(() => this.props.setLoginState(true))
       .catch((err) => console.error(err));
   };
 

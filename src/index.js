@@ -6,9 +6,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
   <Auth0Provider
-    domain='dev-942zxsvz.us.auth0.com'
-    clientId='fQQ3hSGcfifzzA6wsO2dtBlHcm3n1zMa'
-    redirectUri={window.location.origin}
+    domain='dev-cato-bfz.us.auth0.com'
+    clientId='EOl3u4gFhCvTh4BEOJbHpwl6rCVYdcMa'
+    redirectUri='http://localhost:3002'
   >
     <App />
   </Auth0Provider>,
@@ -19,3 +19,8 @@ ReactDOM.render(
 // domain="dev-cato-bfz.us.auth0.com"
 // clientId="EOl3u4gFhCvTh4BEOJbHpwl6rCVYdcMa"
 // redirectUri='http://localhost:3002'
+
+// Ian
+// domain='dev-942zxsvz.us.auth0.com'
+// clientId='fQQ3hSGcfifzzA6wsO2dtBlHcm3n1zMa'
+// redirectUri={window.location.origin}

@@ -1,6 +1,8 @@
 import React from "react";
 import { Navbar, NavItem } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import LogoutButton from "./LoginComponents/LogoutButton";
+
 import "../CSS/Header.css";
 
 class Header extends React.Component {
@@ -20,6 +22,13 @@ class Header extends React.Component {
               Profile
             </Link>
           </NavItem>
+          {this.props.loggedIn && (
+            <NavItem>
+              <Link to='/profile' className='nav-link'>
+                <LogoutButton setLoginState={this.props.setLoginState} />
+              </Link>
+            </NavItem>
+          )}
         </Navbar>
       </>
     );
@@ -27,3 +36,5 @@ class Header extends React.Component {
 }
 
 export default Header;
+
+// {this.props.auth0.isAuthenticated && <LogoutButton />}
